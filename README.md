@@ -185,6 +185,8 @@ server.port = 80server.tomcat.accept-count = 1000server.tomcat.max-threads = 800
 
 
 
+![image-20210824231514818](https://gitee.com/hu873696121/blog-img/raw/master/img/image-20210824231514818.png)
+
 ## 分布式扩展
 
 ### 部署两台java应用服务器
@@ -244,7 +246,18 @@ scp openresty-1.13.6.2.tar.gz root@ip:/upload
 连接服务器
 
 ```shell
-cd /uploadchmod -R 777 openresty-1.13.6.2.tar.gztar -zxvf openresty-1.13.6.2.tar.gzcd openresty-1.13.6.2/yum install pcre-devel openssl-devel gcc curl./configuremakemake installcd /usr/local/openresty/lscd nginx/# 启动nginx服务器sbin/nginx -c conf/nginx.conf
+cd /uploadchmod -R 777 openresty-1.13.6.2.tar.gz
+tar -zxvf openresty-1.13.6.2.tar.gz
+cd openresty-1.13.6.2/
+yum install pcre-devel openssl-devel gcc curl
+./configure
+make
+make install
+cd /usr/local/openresty/
+ls
+cd nginx/
+# 启动nginx服务器
+sbin/nginx -c conf/nginx.conf
 ```
 
 默认开启在80端口，浏览器输入ip地址即可访问
@@ -310,7 +323,9 @@ cd /www/java/miaoshamkdir tomcatvim application.properties
 添加配置
 
 ```
-server.tomcat.accesslog.enabled=trueserver.tomcat.accesslog.directory=/www/java/miaosha/tomcatserver.tomcat.accesslog.pattern=%h %l %u %t "%r" %s %b %D
+server.tomcat.accesslog.enabled=true
+server.tomcat.accesslog.directory=/www/java/miaosha/tomcat
+server.tomcat.accesslog.pattern=%h %l %u %t "%r" %s %b %D
 ```
 
 
@@ -351,7 +366,7 @@ scp application.properties root@172.17.0.15:/www/java/miaoshassh root@172.17.0.1
 
 ![image-20210709175152744](https://gitee.com/hu873696121/blog-img/raw/master/img/20210709175152.png)
 
-
+![image-20210825003351606](https://gitee.com/hu873696121/blog-img/raw/master/img/image-20210825003351606.png)
 
 #### 长连接优化
 
