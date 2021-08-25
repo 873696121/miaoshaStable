@@ -416,6 +416,24 @@ sbin/nginx -c conf/nginx.conf
 
 
 
+#### 重新部署
+
+```shell
+#上传
+scp miaosha-1.0-SNAPSHOT.jar root@192.168.1.41:/upload
+#部署
+cd /upload/
+mv miaosha-1.0-SNAPSHOT.jar /www/miaosha/java/miaosha.jar
+y
+cd /www/miaosha/java/
+ps -ef | grep java
+kill ...
+./deploy.sh &
+
+```
+
+
+
 
 
 ## 分布式session
@@ -436,6 +454,20 @@ sbin/nginx -c conf/nginx.conf
 
 
 
+guava cache
+
+
+
+![image-20210825223908318](https://gitee.com/hu873696121/blog-img/raw/master/img/image-20210825223908318.png)
+
+
+
+静态页面
+
+![image-20210825224316856](https://gitee.com/hu873696121/blog-img/raw/master/img/image-20210825224316856.png)
+
+
+
 ## 页面静态化
 
 ### CDN静态化
@@ -445,4 +477,14 @@ sbin/nginx -c conf/nginx.conf
 ### 全页面静态化
 
 使用爬虫技术，将ajax请求得到的数据连同静态资源缓存成一个html文件，实现全页面静态化
+
+
+
+
+
+## 交易优化
+
+![image-20210826001204030](https://gitee.com/hu873696121/blog-img/raw/master/img/image-20210826001204030.png)
+
+
 
