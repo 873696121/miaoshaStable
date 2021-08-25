@@ -432,6 +432,8 @@ sbin/nginx -c conf/nginx.conf
 
 ### redis缓存
 
+![image-20210825221213190](https://gitee.com/hu873696121/blog-img/raw/master/img/image-20210825221213190.png)
+
 
 
 ## 页面静态化
