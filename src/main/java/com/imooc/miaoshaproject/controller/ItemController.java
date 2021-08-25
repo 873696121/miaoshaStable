@@ -2,6 +2,7 @@ package com.imooc.miaoshaproject.controller;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import com.imooc.miaoshaproject.controller.viewobject.ItemVO;
@@ -11,6 +12,7 @@ import com.imooc.miaoshaproject.service.model.ItemModel;
 import org.joda.time.format.DateTimeFormat;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +28,9 @@ public class ItemController extends BaseController {
 
     @Autowired
     private ItemService itemService;
+
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     //创建商品的controller
     @RequestMapping(value = "/create",method = {RequestMethod.POST},consumes={CONTENT_TYPE_FORMED})
@@ -53,7 +58,16 @@ public class ItemController extends BaseController {
     @RequestMapping(value = "/get",method = {RequestMethod.GET})
     @ResponseBody
     public CommonReturnType getItem(@RequestParam(name = "id")Integer id){
-        ItemModel itemModel = itemService.getItemById(id);
+
+        // redis
+
+        ItemModel itemModel = (ItemModel) redisTemplate.opsForValue().get("item_" + id);
+
+        if(itemModel == null){
+            itemModel = itemService.getItemById(id);
+            redisTemplate.opsForValue().set("item_" + id, itemModel);
+            redisTemplate.expire("item_" + id, 1, TimeUnit.HOURS);
+        }
 
         ItemVO itemVO = convertVOFromModel(itemModel);
 

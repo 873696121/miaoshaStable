@@ -388,6 +388,36 @@ sbin/nginx -s reload
 
 
 
+#### 启动项目步骤
+
+##### mysql主机
+
+```shell
+#mysql
+systemctl start mariadb.service
+#redis
+cd /upload/redis-4.0.1
+src/redis-server ./redis.conf &
+```
+
+##### java
+
+```shell
+cd /www/miaosha/java/
+./deploy.sh &
+```
+
+##### nginx
+
+```shell
+cd /usr/local/openresty/nginx
+sbin/nginx -c conf/nginx.conf
+```
+
+
+
+
+
 ## 分布式session
 
 
